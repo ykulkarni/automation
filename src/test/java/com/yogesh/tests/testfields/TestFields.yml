@@ -1,0 +1,33 @@
+name: Yogesh Kulkarni
+age: '42'
+phone:
+ - 7813546772
+ - 5089360548
+address:
+ street: 32 Amherst Road
+ city: Shrewsbury
+ state: MA
+ zip: 01545
+---
+name: Reshma Kulkarni
+phone: 
+ - 7817248178
+ - 5089360548
+age: '40'
+address:
+ street: 32 Amherst Road
+ city: Shrewsbury
+ state: MA
+ zip: 01545
+---
+name: Dhananjay Odheklar
+phone: 
+ - 7817248178
+ - 5089360548
+age: '40'
+address:
+ street: 32 Amherst Road
+ city: Shrewsbury
+ state: MA
+ zip: 01545
+...
