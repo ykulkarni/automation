@@ -25,6 +25,14 @@ public class BaseTest {
 
 	}
 
+	/**
+	 * This initializes the test data fields to data from data file.
+	 *
+	 * @param map
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IllegalAccessException
+	 */
 	@Factory(dataProvider = "yamlProvider")
 	public Object[] initData(Map<String, Object> map) throws IllegalArgumentException, IllegalAccessException {
 		log.debug("Class Name - " + getClass().getName());
@@ -49,6 +57,15 @@ public class BaseTest {
 		return objectList.toArray();
 	}
 
+	/**
+	 * This assumes that the data file is in the same folder as the *.java test
+	 * file. and has the same name as the test class.
+	 * 
+	 * @param context
+	 * @return
+	 * @throws YamlException
+	 * @throws FileNotFoundException
+	 */
 	@SuppressWarnings("rawtypes")
 	@DataProvider
 	public Iterator<Object[]> yamlProvider(ITestContext context) throws YamlException, FileNotFoundException {

@@ -8,6 +8,12 @@ import com.yogesh.core.BaseTest;
 
 public class ClassUtils {
 
+	/**
+	 * Creates a test instance
+	 *
+	 * @param clazz
+	 * @return
+	 */
 	public static Object createTestInstance(Class<? extends BaseTest> clazz) {
 		Object inst = null;
 		try {
@@ -33,6 +39,13 @@ public class ClassUtils {
 		return inst;
 	}
 
+	/**
+	 * Set the field value to appropriate type
+	 *
+	 * @param inst
+	 * @param field
+	 * @param value
+	 */
 	public static void setFieldValue(Object inst, Field field, String value) {
 		field.setAccessible(true);
 		Class<?> type = field.getType();
@@ -103,6 +116,13 @@ public class ClassUtils {
 		}
 	}
 
+	/**
+	 * Sets the value of field if the type is Map or List
+	 * 
+	 * @param inst
+	 * @param field
+	 * @param ref
+	 */
 	public static void setFieldCollection(Object inst, Field field, Object ref) {
 		field.setAccessible(true);
 		try {
