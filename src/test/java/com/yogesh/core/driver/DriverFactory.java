@@ -14,6 +14,12 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 public class DriverFactory {
 	private final static Logger log = Logger.getLogger(DriverFactory.class);
 
+	/**
+	 * Return an instance of webdriver based on configuration in test.properties.
+	 *
+	 * @param driverType
+	 * @return
+	 */
 	public static WebDriver getWebDriver(String driverType) {
 
 		WebDriver driver = null;

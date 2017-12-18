@@ -9,6 +9,13 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.yogesh.core.driver.DriverSession;
 
+/**
+ * Base Page class for all Page objects.<br>
+ * Initializes Webelement fields
+ *
+ * @author Yogesh Kulkarni
+ *
+ */
 public abstract class AbstractPage {
 
 	protected WebDriver driver = DriverSession.get();
@@ -23,6 +30,11 @@ public abstract class AbstractPage {
 		PageFactory.initElements(driver, this);
 	}
 
+	/**
+	 * Switch Windows for multi window appication
+	 * 
+	 * @param windowName
+	 */
 	public void switchWindow(String windowName) {
 		Set<String> handles = driver.getWindowHandles();
 		for (String handle : handles) {

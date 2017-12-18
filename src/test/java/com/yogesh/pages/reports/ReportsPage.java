@@ -4,6 +4,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.yogesh.pages.BaseScoutPage;
+import com.yogesh.pages.reports.overview.OverviewTabPage;
+import com.yogesh.pages.reports.schools.SchoolTabPage;
 
 public class ReportsPage extends BaseScoutPage {
 
@@ -17,14 +19,15 @@ public class ReportsPage extends BaseScoutPage {
 	@FindBy(css = "span[property='name']")
 	private WebElement propertyNameElement;
 
-	private ReportNavigationBarPage navBar;
-
-	public ReportNavigationBarPage getNavBar() {
-		navBar = new ReportNavigationBarPage();
-		return navBar;
-	}
-
 	public String getPropertyLocation() {
 		return propertyNameElement.getText().trim();
+	}
+
+	public OverviewTabPage overview() {
+		return new ReportNavigationBarPage().overview();
+	}
+
+	public SchoolTabPage schools() {
+		return new ReportNavigationBarPage().schools();
 	}
 }

@@ -7,31 +7,36 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import com.yogesh.core.BaseTest;
+import com.yogesh.core.DataDriven;
 import com.yogesh.core.services.NavigationService;
 import com.yogesh.pages.home.HomePage;
-import com.yogesh.pages.reports.ReportNavigationBarPage;
 import com.yogesh.pages.reports.ReportsPage;
 import com.yogesh.pages.reports.overview.OverviewTabPage;
 import com.yogesh.pages.reports.overview.OverviewTabPage.Category;
 
 /**
+ * Use case - Login to you account<br>
+ * Search for a address<br>
+ * Navigate overview tab to general information<br>
+ * Navigate to Schools tab and validate the schools listed. <br>
  *
  * @author Yogesh Kulkarni
  *
  */
 
+@DataDriven
 public class TestReport extends BaseTest {
 
 	private List<String> schoolList;
 	private String expectedPropertyLocation01545;
 	private String expectedPropertyLocation01752;
 
-	private ReportNavigationBarPage bar;
 	private ReportsPage reports;
+	private SoftAssert softAssert;
 
 	@Test
 	public void schoolTest() {
-		SoftAssert softAssert = new SoftAssert();
+		softAssert = new SoftAssert();
 		HomePage homePage = NavigationService.homePage();
 		reports = homePage.sampleReport();
 
@@ -40,19 +45,22 @@ public class TestReport extends BaseTest {
 		softAssert.assertEquals(propertyLocation, expectedPropertyLocation01545,
 				"Property Location info in header is not correct");
 
-		bar = reports.getNavBar();
-		List<String> schools = bar.schools().getListedSchools();
+		log.info("School information ===");
+
+		List<String> schools = reports.schools().getListedSchools();
 		schools.stream().forEach(it -> {
 			log.info("School Info : " + it);
+			log.info("-----------------------");
 			softAssert.assertTrue(schoolList.contains(it), it + " not listed");
 		});
+		log.info("======================");
 		softAssert.assertAll();
 	}
 
 	@Test(dependsOnMethods = "schoolTest")
 	public void overviewTabTest() {
-		SoftAssert softAssert = new SoftAssert();
-		OverviewTabPage overviewTab = bar.overview();
+		softAssert = new SoftAssert();
+		OverviewTabPage overviewTab = reports.overview();
 		String realEstateAlerts = overviewTab.getAlerts(Category.REAL_ESTATE);
 		log.info("Real Estate alerts - " + realEstateAlerts);
 		softAssert.assertNotNull(realEstateAlerts, "No Alerts for real estate");

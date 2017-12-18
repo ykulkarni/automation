@@ -20,19 +20,14 @@ public class ClassUtils {
 			Constructor<? extends BaseTest> cons = clazz.getConstructor();
 			inst = cons.newInstance();
 		} catch (NoSuchMethodException | SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -51,60 +46,33 @@ public class ClassUtils {
 		Class<?> type = field.getType();
 		try {
 			Object convertedValue = null;
-
 			if (type == String.class) {
-
 				convertedValue = value;
-
 			} else if (type == Integer.TYPE) {
-
 				convertedValue = value.length() == 0 ? 0 : Integer.decode(value);
-
 			} else if (type == Integer.class) {
-
 				convertedValue = value.length() == 0 ? null : Integer.decode(value);
-
 			} else if (type == Boolean.TYPE) {
-
 				convertedValue = value.length() == 0 ? false : Boolean.valueOf(value);
-
 			} else if (type == Boolean.class) {
-
 				convertedValue = value.length() == 0 ? null : Boolean.valueOf(value);
-
 			} else if (type == Float.TYPE) {
-
 				convertedValue = value.length() == 0 ? 0 : Float.valueOf(value);
-
 			} else if (type == Float.class) {
-
 				convertedValue = value.length() == 0 ? null : Float.valueOf(value);
-
 			} else if (type == Double.TYPE) {
-
 				convertedValue = value.length() == 0 ? 0 : Double.valueOf(value);
-
 			} else if (type == Double.class) {
-
 				convertedValue = value.length() == 0 ? null : Double.valueOf(value);
-
 			} else if (type == Long.TYPE) {
-
 				convertedValue = value.length() == 0 ? 0 : Long.decode(value);
-
 			} else if (type == Long.class) {
-
 				convertedValue = value.length() == 0 ? null : Long.decode(value);
-
 			} else if (type == Short.TYPE) {
-
 				convertedValue = value.length() == 0 ? 0 : Short.decode(value);
-
 			} else if (type == Short.class) {
-
 				convertedValue = value.length() == 0 ? null : Short.decode(value);
 			}
-
 			field.set(inst, convertedValue);
 
 		} catch (IllegalArgumentException e) {
@@ -118,7 +86,7 @@ public class ClassUtils {
 
 	/**
 	 * Sets the value of field if the type is Map or List
-	 * 
+	 *
 	 * @param inst
 	 * @param field
 	 * @param ref
@@ -128,7 +96,6 @@ public class ClassUtils {
 		try {
 			field.set(inst, ref);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

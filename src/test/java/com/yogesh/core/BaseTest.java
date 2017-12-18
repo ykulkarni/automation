@@ -117,6 +117,12 @@ public abstract class BaseTest {
 		return dataToBeReturned.iterator();
 	}
 
+	/**
+	 * Return data input file. Data file need to be same name as the test class
+	 * name.
+	 *
+	 * @return
+	 */
 	public InputStreamReader getFileInputStream() {
 		String className = this.getClass().getName();
 		String filePath = className.replace(".", "/") + ".yml";
