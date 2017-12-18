@@ -1,0 +1,7 @@
+schoolList: 
+ - 'City View School,80 Prospect Street,Worcester, MA, 01605'
+ - 'North High School,140 Harrington Way,Worcester, MA, 01604'
+ - 'Worcester East Middle School,420 Grafton Street,Worcester, MA, 01604'
+expectedPropertyLocation01545: '86 SHREWSBURY ST., WORCESTER, MA 01604'
+expectedPropertyLocation01752: '45 LAKESIDE AVE, MARLBOROUGH, MA 01752'
+...

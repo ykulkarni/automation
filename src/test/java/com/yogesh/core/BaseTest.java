@@ -9,17 +9,50 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 
 import com.esotericsoftware.yamlbeans.YamlException;
 import com.esotericsoftware.yamlbeans.YamlReader;
+import com.yogesh.core.config.Configuration;
+import com.yogesh.core.driver.DriverFactory;
+import com.yogesh.core.driver.DriverSession;
+import com.yogesh.core.page.AbstractPage;
 import com.yogesh.utils.ClassUtils;
 
-public class BaseTest {
+public abstract class BaseTest {
 
 	protected final Logger log = Logger.getLogger(this.getClass());
+	protected WebDriver driver;
+
+	@BeforeClass
+	public void init() {
+		String browser = Configuration.getInstance().getBrowser();
+		log.info("Browser Type - " + browser);
+		driver = DriverFactory.getWebDriver(browser);
+		DriverSession.set(driver);
+	}
+
+	@BeforeClass(dependsOnMethods = "init")
+	public void setup() {
+		if (driver == null) {
+			log.info("=== Setting the session ====");
+			driver = DriverSession.get();
+		}
+		driver.get(Configuration.getInstance().getURL());
+		driver.manage().window().maximize();
+		AbstractPage.getWindowHandlesMap().put("home", driver.getWindowHandle());
+	}
+
+	@AfterClass(alwaysRun = true)
+	public void tearDown() {
+		driver.close();
+		driver.quit();
+	}
 
 	public BaseTest() {
 
@@ -45,13 +78,15 @@ public class BaseTest {
 
 		for (Field field : fields) {
 			log.debug("Field Name - " + field.getName());
-			if (field.getType().equals(Map.class) || field.getType().equals(List.class)) {
-				log.debug(field.getType().getName());
-				ClassUtils.setFieldCollection(inst, field, map.get(field.getName()));
-			} else {
-				log.debug(field.getType().getName());
-				ClassUtils.setFieldValue(inst, field, (String) map.get(field.getName()));
-			}
+			Object it = map.get(field.getName());
+			if (it != null)
+				if (field.getType().equals(Map.class) || field.getType().equals(List.class)) {
+					log.debug(field.getType().getName());
+					ClassUtils.setFieldCollection(inst, field, it);
+				} else {
+					log.debug(field.getType().getName());
+					ClassUtils.setFieldValue(inst, field, (String) it);
+				}
 		}
 		objectList.add(inst);
 		return objectList.toArray();
@@ -60,7 +95,7 @@ public class BaseTest {
 	/**
 	 * This assumes that the data file is in the same folder as the *.java test
 	 * file. and has the same name as the test class.
-	 * 
+	 *
 	 * @param context
 	 * @return
 	 * @throws YamlException
@@ -85,8 +120,7 @@ public class BaseTest {
 	public InputStreamReader getFileInputStream() {
 		String className = this.getClass().getName();
 		String filePath = className.replace(".", "/") + ".yml";
-		log.debug("Test Data File Name - " + filePath);
+		log.info("Test Data File Name - " + filePath);
 		return new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream(filePath));
 	}
-
 }
